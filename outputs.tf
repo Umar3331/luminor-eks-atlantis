@@ -2,6 +2,7 @@ output "cluster_endpoint" {
   description = "EKS cluster endpoint"
   value       = module.eks.cluster_endpoint
 }
+#testing of PR for Atlantis
 
 output "cluster_certificate_authority_data" {
   description = "EKS cluster CA data"

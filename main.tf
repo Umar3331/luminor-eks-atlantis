@@ -106,3 +106,4 @@ resource "aws_iam_role_policy_attachment" "eks_read_only_attach" {
   role       = aws_iam_role.eks_read_only.name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
+

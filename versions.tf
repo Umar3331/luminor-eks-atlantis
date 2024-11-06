@@ -7,7 +7,7 @@ terraform {
       version = ">= 5.46"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = ">= 2.23.0"
     }
     tls = {
@@ -15,7 +15,7 @@ terraform {
       version = ">= 3.0"
     }
     time = {
-      source = "hashicorp/time"
+      source  = "hashicorp/time"
       version = ">= 0.9"
     }
   }

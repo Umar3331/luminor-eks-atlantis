@@ -1,49 +1,55 @@
-Luminor EKS Atlantis Deployment
-Overview
-This project sets up an Amazon EKS (Elastic Kubernetes Service) cluster integrated with Atlantis, a tool for Terraform pull request automation. The infrastructure is managed using Terraform, setting up an EKS cluster, IAM roles, security groups, VPC, subnets, and necessary configurations for a production-ready Kubernetes environment. This README provides clear guidance on configuration, deployment, and usage.
+# Luminor EKS Atlantis Deployment
 
-Table of Contents
-Prerequisites
-Installation and Setup
-Usage Instructions
-Configuration Parameters
-Outputs and Endpoints
-Testing and Validation
-Troubleshooting
-Architecture Diagram
-Best Practices and Security Considerations
-Contributing
-Acknowledgments and References
-Prerequisites
-System Requirements
-OS: Linux/macOS recommended for compatibility with CLI tools.
-Memory: Minimum 8GB of RAM.
-Disk Space: Minimum of 20GB free disk space.
-Tools and Dependencies
-Terraform v1.0 or higher - For infrastructure as code.
-AWS CLI v2 - For managing AWS resources.
-kubectl v1.21 or higher - For Kubernetes management.
-Git - For version control and repository management.
-Access and Permissions
-AWS IAM user: Requires permissions for EKS, IAM, and VPC management.
-GitHub Access: A GitHub token with repository access to enable Atlantis pull request automation.
-Installation and Setup
-Installation Steps
-Initialize Terraform:
+## Overview
+This project sets up an Amazon EKS (Elastic Kubernetes Service) cluster integrated with Atlantis, a tool for Terraform pull request automation. The infrastructure is managed using Terraform, configuring an EKS cluster, IAM roles, security groups, VPC, subnets, and necessary setups for a production-ready Kubernetes environment. This README provides guidance on configuration, deployment, and usage.
 
-Run terraform init to initialize the Terraform working directory. This downloads the required provider plugins and initializes modules.
-bash
-Copy code
-terraform init
-Plan the Infrastructure:
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Installation and Setup](#installation-and-setup)
+- [Usage Instructions](#usage-instructions)
+- [Configuration Parameters](#configuration-parameters)
+- [Outputs and Endpoints](#outputs-and-endpoints)
+- [Testing and Validation](#testing-and-validation)
+- [Troubleshooting](#troubleshooting)
+- [Architecture Diagram](#architecture-diagram)
+- [Best Practices and Security Considerations](#best-practices-and-security-considerations)
+- [Contributing](#contributing)
+- [Acknowledgments and References](#acknowledgments-and-references)
 
+## Prerequisites
+
+### System Requirements
+- **OS**: Linux/macOS recommended for CLI compatibility.
+- **Memory**: Minimum 8GB of RAM.
+- **Disk Space**: Minimum 20GB free disk space.
+
+### Tools and Dependencies
+- **Terraform** v1.0 or higher – For infrastructure as code.
+- **AWS CLI** v2 – For managing AWS resources.
+- **kubectl** v1.21 or higher – For Kubernetes management.
+- **Git** – For version control and repository management.
+
+### Access and Permissions
+- **AWS IAM user**: Requires permissions for EKS, IAM, and VPC management.
+- **GitHub Access**: A GitHub token with repository access to enable Atlantis pull request automation.
+
+## Installation and Setup
+
+### Installation Steps
+
+1. **Initialize Terraform**  
+   Run `terraform init` to initialize the Terraform working directory. This downloads the required provider plugins and initializes modules.
+   ```bash
+   terraform init
+Plan the Infrastructure
 Run terraform plan -var-file="secrets.tfvars" to generate an execution plan. This step verifies if the configuration is valid and shows the actions that Terraform will take.
+
 bash
 Copy code
 terraform plan -var-file="secrets.tfvars"
-Deploy the Infrastructure:
-
+Deploy the Infrastructure
 Run terraform apply -var-file="secrets.tfvars" to create the infrastructure on AWS. This command will prompt for confirmation before applying the changes.
+
 bash
 Copy code
 terraform apply -var-file="secrets.tfvars"
@@ -52,12 +58,16 @@ Store sensitive information, such as AWS credentials and GitHub tokens, in envir
 Use .gitignore to prevent sensitive files from being committed.
 Usage Instructions
 How to Deploy
-Run Terraform Commands as described above in the Installation Steps.
+Run the Terraform commands as described above in the Installation Steps.
+
 After Deployment:
+
 Terraform output will display the external IP for Atlantis.
 Copy this DNS or external IP and paste it into your GitHub repository webhook URL.
 Add a webhook secret and configure the events you want to trigger Atlantis on (e.g., pull requests).
-After configuring the webhook, create a pull request in your repository to see Atlantis trigger a Terraform plan automatically.
+Triggering Atlantis:
+
+Create a pull request in your repository to see Atlantis automatically execute a Terraform plan.
 Configuration Parameters
 The primary parameters defined in variables.tf are as follows:
 
@@ -71,26 +81,27 @@ max_worker_count: Maximum number of worker nodes (default: 2).
 These parameters allow customization of the EKS cluster's region, name, networking, and node count.
 
 Outputs and Endpoints
-Based on outputs.tf, the following outputs are generated:
+The following outputs are generated (from outputs.tf):
 
 EKS Cluster Endpoint (cluster_endpoint): The endpoint for accessing the EKS API server.
-EKS Cluster CA Data (cluster_certificate_authority_data): Certificate authority data required to authenticate with the cluster.
+EKS Cluster CA Data (cluster_certificate_authority_data): Certificate authority data required for authentication with the cluster.
 EKS Cluster ID (cluster_id): The unique ID for the EKS cluster.
-Atlantis External IP (atlantis_external_ip): The external IP address for the Atlantis service, which can be used in GitHub webhooks.
+Atlantis External IP (atlantis_external_ip): The external IP address for the Atlantis service, used for GitHub webhooks.
 Testing and Validation
 Expected Results
-Terraform Output: The Terraform output will display the external IP or DNS for Atlantis. Use this IP to configure the GitHub webhook.
-Set up Webhook:
-Go to your GitHub repository, navigate to Settings > Webhooks, and add the DNS or external IP as the payload URL.
+Terraform Output: Displays the external IP or DNS for Atlantis. Use this IP to configure the GitHub webhook.
+Set up Webhook
+Go to your GitHub repository and navigate to Settings > Webhooks.
+Add the DNS or external IP as the payload URL.
 Set the secret and specify events that should trigger Atlantis (e.g., pull requests).
-Create a Pull Request:
-Create a new pull request in your repository. Atlantis should automatically comment on the pull request with a Terraform plan, showing the changes it intends to make.
+Create a Pull Request
+When you create a new pull request in your repository, Atlantis should automatically comment on the pull request with a Terraform plan, showing the changes it intends to make.
 Troubleshooting
 Common Issues
-Helm Release Fails: If you encounter Helm-related errors, ensure all prerequisites are met and that necessary permissions are granted.
-Service Account or IAM Role Issues: Verify that the IAM roles and Kubernetes service accounts are correctly configured and associated with the right permissions.
+Helm Release Fails: Ensure all prerequisites are met and that necessary permissions are granted.
+Service Account or IAM Role Issues: Verify that the IAM roles and Kubernetes service accounts are configured correctly and associated with the right permissions.
 Logs and Debugging
-Atlantis Logs: To monitor Atlantis, use the following command to view logs:
+Atlantis Logs: Use the following command to monitor Atlantis logs:
 bash
 Copy code
 kubectl logs -f <atlantis-pod-name> -n atlantis
@@ -104,8 +115,6 @@ Include a visual diagram illustrating:
 The EKS cluster with public and private subnets.
 Atlantis setup and its integration with GitHub for pull request automation.
 AWS resources like VPC, IAM roles, security groups, and Load Balancers.
-Add your architecture diagram here.
-
 Best Practices and Security Considerations
 Security Recommendations
 IAM Least Privilege: Ensure IAM roles and policies grant only the minimum required permissions.

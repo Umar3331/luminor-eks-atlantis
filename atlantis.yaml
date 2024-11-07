@@ -1,0 +1,16 @@
+version: 3
+projects:
+  - dir: .
+    workflow: terraform
+workflows:
+  terraform:
+    plan:
+      steps:
+        - init
+        - plan:
+            extra_args: ["-var-file=secrets.tfvars"]
+    apply:
+      steps:
+        - apply:
+            extra_args: ["-var-file=secrets.tfvars"]
+

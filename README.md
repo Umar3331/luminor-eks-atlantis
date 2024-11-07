@@ -127,6 +127,6 @@ Acknowledgments
 Thanks to all contributors and the open-source community for the development of tools and modules used in this project.
 
 References
-https://docs.aws.amazon.com/eks/
-https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest
-https://www.runatlantis.io/docs/deployment.html
+AWS EKS Documentation
+Terraform Documentation
+Atlantis Documentation

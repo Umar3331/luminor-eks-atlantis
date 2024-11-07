@@ -3,3 +3,9 @@
 *.tfstate.backup
 .terraform.lock.hcl
 values.yaml
+eks-admins-clusterrolebinding.yaml
+eks-read-only-clusterrole.yaml
+eks-read-only-clusterrolebinding.yaml
+kubectl
+kubectl.sha256
+tfplan

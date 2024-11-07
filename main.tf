@@ -1,3 +1,4 @@
+# VPC Module for Networking
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.15.0"
@@ -17,6 +18,7 @@ module "vpc" {
   }
 }
 
+#EKS Module for Kubernetes Cluster
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "20.28.0"
@@ -25,7 +27,8 @@ module "eks" {
   cluster_version = "1.31"
   vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.private_subnets
-
+  
+  # Enable public access to the EKS cluster endpoint
   cluster_endpoint_public_access = true
 
   eks_managed_node_group_defaults = {
@@ -51,9 +54,11 @@ module "eks" {
       }
     }
   }
-
+  
+  #Grant cluster creator admin permissions by default
   enable_cluster_creator_admin_permissions = true
 
+  # Define access roles for Kubernetes groups
   access_entries = {
     eks_admin = {
       principal_arn     = aws_iam_role.eks_admin.arn
@@ -70,18 +75,21 @@ module "eks" {
   }
 }
 
+# Create an IAM role for EKS administrators with assume role policy
 resource "aws_iam_role" "eks_admin" {
   name = "eks-admin"
 
   assume_role_policy = data.aws_iam_policy_document.eks_assume_role_policy.json
 }
 
+# Create an IAM role for EKS read-only access with assume role policy
 resource "aws_iam_role" "eks_read_only" {
   name = "eks-read-only"
 
   assume_role_policy = data.aws_iam_policy_document.eks_assume_role_policy.json
 }
 
+# Define assume role policy document for EKS roles
 data "aws_iam_policy_document" "eks_assume_role_policy" {
   statement {
     effect  = "Allow"
@@ -104,6 +112,7 @@ resource "aws_iam_role_policy_attachment" "eks_read_only_attach" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
+# Retrieve the Atlantis service in Kubernetes for reference
 data "kubernetes_service" "atlantis_service" {
   metadata {
     name      = helm_release.atlantis.metadata[0].name

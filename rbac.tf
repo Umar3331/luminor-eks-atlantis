@@ -1,3 +1,4 @@
+# ClusterRoleBinding to grant cluster-admin permissions to the "eks-admins" group
 resource "kubernetes_cluster_role_binding" "eks_admin_binding" {
   metadata {
     name = "eks-admins"
@@ -14,6 +15,7 @@ resource "kubernetes_cluster_role_binding" "eks_admin_binding" {
   }
 }
 
+# ClusterRoleBinding to bind the read-only role to the "eks-read-only" group
 resource "kubernetes_cluster_role" "eks_read_only" {
   metadata {
     name = "eks-read-only-role"
@@ -26,6 +28,7 @@ resource "kubernetes_cluster_role" "eks_read_only" {
   # Add additional rules as per requirement
 }
 
+# ClusterRoleBinding to bind the read-only role to the "eks-read-only" group
 resource "kubernetes_cluster_role_binding" "eks_read_only_binding" {
   metadata {
     name = "eks-read-only"

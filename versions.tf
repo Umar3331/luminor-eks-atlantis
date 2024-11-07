@@ -1,6 +1,8 @@
+# Terraform block specifying the required Terraform version and providers
 terraform {
   required_version = ">= 1.3.2"
-
+  
+  # Specify required providers with their sources and minimum versions
   required_providers {
     aws = {
       source  = "hashicorp/aws"

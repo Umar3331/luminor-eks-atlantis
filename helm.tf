@@ -1,3 +1,5 @@
+# Configuring Helm provider to connect to the EKS cluster
+
 provider "helm" {
   kubernetes {
     host                   = module.eks.cluster_endpoint
@@ -6,6 +8,7 @@ provider "helm" {
   }
 }
 
+# Deploying Atlantis Helm chart into the EKS cluster
 resource "helm_release" "atlantis" {
   name             = "atlantis"
   repository       = "https://runatlantis.github.io/helm-charts"

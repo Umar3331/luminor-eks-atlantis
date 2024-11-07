@@ -13,22 +13,23 @@ resource "helm_release" "atlantis" {
   namespace        = "atlantis"
   create_namespace = true
 
-  values = [file("${path.module}/values.yaml")]
-
-  set {
-    name  = "orgAllowlist"
-    value = "github.com/umar3331/luminor-eks-atlantis"
-  }
-
-  set {
-    name  = "service.type"
-    value = "LoadBalancer"
-  }
-
-  set {
-    name  = "volumeClaim.dataStorage"
-    value = "5Gi"
-  }
+  values = [
+    <<EOF
+    orgAllowlist: "${var.org_allowlist}"
+    github:
+      user: "${var.github_user}"
+      token: "${var.github_token}"
+      secret: "${var.github_secret}"
+    service:
+      type: LoadBalancer
+    volumeClaim:
+      enabled: true
+      dataStorage: 5Gi
+      storageClassName: "gp2"
+      accessModes:
+        - ReadWriteOnce
+    EOF
+  ]
 
   depends_on = [null_resource.install_ebs_csi_driver]
 }

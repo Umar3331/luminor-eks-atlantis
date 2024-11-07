@@ -11,9 +11,7 @@ This project sets up an Amazon EKS (Elastic Kubernetes Service) cluster integrat
 - [Outputs and Endpoints](#outputs-and-endpoints)
 - [Testing and Validation](#testing-and-validation)
 - [Troubleshooting](#troubleshooting)
-- [Architecture Diagram](#architecture-diagram)
 - [Best Practices and Security Considerations](#best-practices-and-security-considerations)
-- [Contributing](#contributing)
 - [Acknowledgments and References](#acknowledgments-and-references)
 
 ## Prerequisites

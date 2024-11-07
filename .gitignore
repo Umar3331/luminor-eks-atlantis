@@ -9,4 +9,4 @@ eks-read-only-clusterrolebinding.yaml
 kubectl
 kubectl.sha256
 tfplan
-secrets.tfvars`
+secrets.tfvars

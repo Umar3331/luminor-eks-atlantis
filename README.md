@@ -127,6 +127,6 @@ kubectl get events -A
 - Acknowledgments
 
 ## References
-- AWS EKS Documentation
-- Terraform Documentation
-- Atlantis Documentation
+[AWS EKS Documentation](https://docs.aws.amazon.com/eks/)  
+[Terraform Documentation](https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest)  
+[Atlantis Documentation](https://www.runatlantis.io/docs/deployment.html)

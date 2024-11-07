@@ -126,7 +126,7 @@ kubectl get events -A
 - Acknowledgments and References
 - Acknowledgments
 
-References
-AWS EKS Documentation
-Terraform Documentation
-Atlantis Documentation
+## References
+- AWS EKS Documentation
+- Terraform Documentation
+- Atlantis Documentation

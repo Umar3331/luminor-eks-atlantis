@@ -39,3 +39,22 @@ variable "max_worker_count" {
   type        = number
   default     = 2
 }
+
+variable "github_user" {
+  description = "GitHub username for Atlantis"
+}
+
+variable "github_token" {
+  description = "GitHub token for Atlantis"
+  sensitive   = true
+}
+
+variable "github_secret" {
+  description = "GitHub webhook secret for Atlantis"
+  sensitive   = true
+}
+
+variable "org_allowlist" {
+  description = "Repository allowlist for Atlantis"
+}
+

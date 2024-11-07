@@ -57,4 +57,7 @@ variable "github_secret" {
 variable "org_allowlist" {
   description = "Repository allowlist for Atlantis"
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e3ad72a (test)

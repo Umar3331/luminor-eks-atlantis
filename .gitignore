@@ -10,3 +10,4 @@ kubectl
 kubectl.sha256
 tfplan
 secrets.tfvars
+variables.tf
